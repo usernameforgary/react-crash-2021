@@ -1,13 +1,27 @@
-import Task from './Task'
+import PropTypes from "prop-types";
+import Task from "./Task";
 
 const Tasks = ({ tasks, onDelete, onToggle }) => {
   return (
-    <>
-      {tasks.map((task, index) => (
-        <Task key={index} task={task} onDelete={onDelete} onToggle={onToggle} />
-      ))}
-    </>
-  )
-}
+    <div>
+      {tasks.map((task) => {
+        return (
+          <Task
+            key={task.id}
+            {...task}
+            onDelete={onDelete}
+            onToggle={onToggle}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
-export default Tasks
+Tasks.propTypes = {
+  tasks: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
+};
+
+export default Tasks;

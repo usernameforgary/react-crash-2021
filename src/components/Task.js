@@ -1,21 +1,31 @@
-import { FaTimes } from 'react-icons/fa'
+import PropTypes from "prop-types";
+import { FaTimes } from "react-icons/fa";
 
-const Task = ({ task, onDelete, onToggle }) => {
+const Task = ({ id, text, day, reminder, onDelete, onToggle }) => {
   return (
     <div
-      className={`task ${!task.reminder && 'reminder'}`}
-      onDoubleClick={() => onToggle(task.id)}
+      className={`task ${reminder ? "reminder" : ""}`}
+      onDoubleClick={() => onToggle(id)}
     >
       <h3>
-        {task.text}{' '}
+        {text}
         <FaTimes
-          style={{ color: 'red', cursor: 'pointer' }}
-          onClick={() => onDelete(task.id)}
+          style={{ color: "red", cursor: "pointer" }}
+          onClick={() => onDelete(id)}
         />
       </h3>
-      <p>{task.day}</p>
+      <p>{day}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Task
+Task.propTypes = {
+  id: PropTypes.number.isRequired,
+  day: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  reminder: PropTypes.bool.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
+};
+
+export default Task;
